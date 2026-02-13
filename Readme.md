@@ -37,6 +37,10 @@ WHERE o.status = 'shipped' AND o.date_created > NOW() - INTERVAL '1 WEEK'
 GROUP BY o.date_created
 ORDER BY o.date_created desc;
 ```
+___
+Запусков: 10
 
-Время выполнения запроса
-- без индексов: 25,660 мс
+|С индексами|Среднее время выполнения, мс|
+|:---:|:---:|
+|нет|25,660|
+|да|11,630|
