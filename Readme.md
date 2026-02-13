@@ -26,3 +26,17 @@ GRANT CREATE ON SCHEMA public TO service;
 ```sql
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO service;
 ```
+
+Запрос, позволяющий определить количество сосисок, проданных за каждый день предыдущей недели:
+
+```sql
+SELECT o.date_created, SUM(op.quantity) as amount
+FROM orders o
+JOIN order_product op ON o.id = op.order_id
+WHERE o.status = 'shipped' AND o.date_created > NOW() - INTERVAL '1 WEEK'
+GROUP BY o.date_created
+ORDER BY o.date_created desc;
+```
+
+Время выполнения запроса
+- без индексов: 25,660 мс
